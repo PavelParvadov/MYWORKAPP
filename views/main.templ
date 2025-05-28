@@ -1,0 +1,43 @@
+package views
+
+import (
+	"alaricode/go-fiber/internal/vacancy"
+	"alaricode/go-fiber/views/components"
+	"alaricode/go-fiber/views/layout"
+	"alaricode/go-fiber/views/widgets"
+)
+
+templ Main(vacancies []vacancy.Vacancy, pageCount, page int, authenticated bool) {
+	@layout.Layout(layout.LayoutProps{
+		Title:           "Найди работу мечты",
+		MetaDescription: "Сайт по поиску работы мечты",
+	}) {
+		<main>
+			@MainStyle()
+			@layout.Header(authenticated) {
+				@components.Title("Найди работу своей мечты!")
+				@components.SubTitle("Простой поиск работы")
+			}
+			@widgets.VacancyList(vacancies, pageCount, page)
+			<div class="main__submit-form">
+				if authenticated {
+					@widgets.VacancyForm()
+				} else {
+					@components.Notification("Войдите, чтобы опубликовать вакансию", components.NotificationFail)
+				}
+			</div>
+		</main>
+	}
+}
+
+templ MainStyle() {
+	<style>
+		.main__submit-form {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: rgba(48, 150, 137, 0.10);
+			padding: 60px 0 120px 0;
+		}
+	</style>
+}

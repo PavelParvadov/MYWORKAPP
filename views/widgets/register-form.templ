@@ -1,0 +1,44 @@
+package widgets
+
+import "alaricode/go-fiber/views/components"
+
+templ RegisterForm() {
+	@RegisterFormStyle()
+	<div id="register-result"></div>
+	<form
+		hx-post="/register"
+		hx-trigger="submit"
+		hx-target="#register-result"
+		hx-target-error="#register-result"
+		hx-swap="innerHTML"
+		class="register-form"
+	>
+		@components.Input(components.InputProps{
+			Name:        "name",
+			Placeholder: "Имя",
+		})
+		@components.Input(components.InputProps{
+			Name:        "email",
+			Placeholder: "Email",
+		})
+		@components.Input(components.InputProps{
+			Name:        "password",
+			Placeholder: "Пароль",
+		})
+		@components.SubmitButton() {
+			<div>Зарегистрироваться</div>
+		}
+	</form>
+}
+
+templ RegisterFormStyle() {
+	<style>
+		.register-form {
+			display: flex;
+			flex-direction: column;
+			gap: 30px;
+			width: 100%;
+			max-width: 520px;
+		}
+	</style>
+}

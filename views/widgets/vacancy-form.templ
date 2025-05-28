@@ -1,0 +1,102 @@
+package widgets
+
+import "alaricode/go-fiber/views/components"
+
+templ VacancyForm() {
+	@VacancyFormStyle()
+	<div class="vacancy-form" hx-ext="response-targets">
+		@components.Title2("Опубликовать вакансию", true)
+		<div id="vacancy-result"></div>
+		<p class="vacancy-form__text">Введите все необходимые данные для публикации</p>
+		<form hx-post="/vacancy"
+			hx-trigger="submit"
+			hx-target="#vacancy-result"
+			hx-target-error="#vacancy-result"
+			hx-swap="innerHTML swap:1s"
+			hx-on::after-request="if(event.detail.successful) this.reset()"
+		>
+			<div class="vacancy-form__inputs">
+				@components.Input(components.InputProps{
+				Name: "role",
+				Placeholder: "Должность",
+				})
+				@components.Input(components.InputProps{
+				Name: "company",
+				Placeholder: "Название компании",
+				})
+				@components.Input(components.InputProps{
+				Name: "type",
+				Placeholder: "Сфера компании",
+				})
+				@components.Input(components.InputProps{
+				Name: "salary",
+				Placeholder: "Заработная плата",
+				})
+				@components.Input(components.InputProps{
+				Name: "location",
+				Placeholder: "Расположение",
+				})
+				@components.Input(components.InputProps{
+				Name: "email",
+				Placeholder: "Контактный email",
+				})
+			</div>
+			@components.SubmitButton() {
+			<div class="vacancy-form__submit">Опубликовать</div>
+			<div class="vacancy-form__loader"></div>
+			}
+		</form>
+	</div>
+}
+
+templ VacancyFormStyle() {
+<style>
+	.vacancy-form__text {
+		overflow: hidden;
+		color: var(--color-black);
+		text-align: center;
+		white-space: nowrap;
+		font-size: 16px;
+		font-weight: 400;
+		margin-bottom: 60px;
+	}
+	.vacancy-form {
+		max-width: 890px;
+		width: 100%;
+	}
+	.vacancy-form form {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+	.vacancy-form__inputs {
+		width: 100%;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 30px 24px;
+		margin-bottom: 30px;
+	}
+	.vacancy-form__loader {
+		display: none;
+	}
+	.htmx-request .vacancy-form__submit {
+		display: none;
+	}
+	.htmx-request .vacancy-form__loader {
+		display: block;
+		width: 50px;
+		--b: 8px;
+		aspect-ratio: 1;
+		border-radius: 50%;
+		background: #ffffff;
+		-webkit-mask:
+			repeating-conic-gradient(#03020200 0deg,#000 1deg 70deg,#0000 71deg 90deg),
+			radial-gradient(farthest-side,#0000 calc(100% - var(--b) - 1px),#000 calc(100% - var(--b)));
+		-webkit-mask-composite: destination-in;
+				mask-composite: intersect;
+		animation: l5 1s infinite;
+	}
+	@keyframes l5 {to{transform: rotate(.5turn)}}
+</style>
+}

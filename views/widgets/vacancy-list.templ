@@ -1,0 +1,78 @@
+package widgets
+
+import "alaricode/go-fiber/internal/vacancy"
+import "alaricode/go-fiber/views/components"
+import "fmt"
+
+templ VacancyList(vacancies []vacancy.Vacancy, pagesCount, page int) {
+@VacancyListStyle()
+	<div class="vacancy-list__wrapper">
+		@components.Title2("Последние вакансии", false)
+		<p>Найдите подходящую вакансию за пару минут!</p>
+		<div class="vacancy-list">
+			for _, vacancy := range vacancies {
+			@components.VacancyCard(components.VacancyCardProps{
+					Email: vacancy.Email,
+					Location: vacancy.Location,
+					Salary: vacancy.Salary,
+					CompanyType: vacancy.Type,
+					Company: vacancy.Company,
+					Createdat: vacancy.CreatedAt,
+					Role: vacancy.Role,
+				})
+			}
+		</div>
+		<div class="vacancy-list__paginaton">
+			<div class="vacancy-list__paginaton-item">
+				if page != 1 {
+					<img src="/public/icons/chevron-left.svg" alt="Стрелка влево" />
+					<a href={templ.SafeURL(fmt.Sprintf("/?page=%d", page - 1))}>Предыдущие</a>
+				}
+			</div>
+			<div class="vacancy-list__paginaton-item">
+				if page != pagesCount {
+					<a href={templ.SafeURL(fmt.Sprintf("/?page=%d", page + 1))}>Следующие</a>
+					<img src="/public/icons/chevron-right.svg" alt="Стрелка справо" />
+				}
+			</div>
+		</div>
+	</div>
+}
+
+templ VacancyListStyle() {
+<style>
+	.vacancy-list__wrapper {
+		width: 100%;
+		max-width: 1296px;
+		margin: 0 auto;
+		padding: 60px 0;
+	}
+	.vacancy-list__wrapper p {
+		margin-bottom: 60px;
+	}
+	.vacancy-list {
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		gap: 24px;
+		margin-bottom: 50px;
+	}
+	.vacancy-list__paginaton {
+		display: flex;
+		justify-content: space-between;
+		gap: 24px;
+	}
+	.vacancy-list__paginaton-item {
+		display: flex;
+		gap: 8px;
+		align-items: center;
+	}
+	.vacancy-list__paginaton-item a {
+		text-decoration: none;
+		color: #6C757D;
+	}
+	.vacancy-list__paginaton-item a:hover {
+		color: #545a60;
+	}
+</style>
+}

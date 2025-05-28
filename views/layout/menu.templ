@@ -1,0 +1,45 @@
+package layout
+
+import "alaricode/go-fiber/views/components"
+
+templ Menu(authenticated bool) {
+	@MenuStyle()
+	<div class="menu">
+		<a href="/">
+			<img src="/public/images/logo.svg" />
+		</a>
+		<div class="menu__right">
+			if authenticated {
+				<a class="menu__right-link" href="/logout">Выйти</a>
+			} else {
+				<a class="menu__right-link" href="/login">Войти</a>
+				@components.LinkButton("/register") {
+					<span>Зарегистрироваться</span>
+				}
+			}
+		</div>
+	</div>
+}
+
+templ MenuStyle() {
+	<style>
+		.menu {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			width: 100%;
+			max-width: 1296px;
+			margin: 0 auto;
+			padding: 20px;
+		}
+		.menu__right {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+		}
+		.menu__right-link {
+			color: var(--color-white);
+			text-decoration: none;
+		}
+	</style>
+}

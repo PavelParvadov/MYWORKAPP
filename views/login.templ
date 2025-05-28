@@ -1,0 +1,47 @@
+package views
+
+import (
+	"alaricode/go-fiber/views/components"
+	"alaricode/go-fiber/views/layout"
+	"alaricode/go-fiber/views/widgets"
+)
+
+templ Login(authenticated bool) {
+	@layout.Layout(layout.LayoutProps{
+		Title:           "Вход на сайт",
+		MetaDescription: "Войти на сайт поиска работы",
+	}) {
+		<main>
+			@LoginStyle()
+			@layout.Header(authenticated) {
+				@components.Title("Войти на сайт")
+				@components.SubTitle("Введите свои данные")
+			}
+			<div class="login-page">
+				<div class="login-wrapper">
+					@widgets.LoginForm()
+				</div>
+			</div>
+		</main>
+	}
+}
+
+templ LoginStyle() {
+	<style>
+		.login-page {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 100%;
+			background: rgba(48, 150, 137, 0.10);
+			padding: 60px 20px 120px;
+		}
+		.login-wrapper {
+			width: 100%;
+			max-width: 520px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+	</style>
+}

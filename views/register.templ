@@ -1,0 +1,47 @@
+package views
+
+import (
+	"alaricode/go-fiber/views/components"
+	"alaricode/go-fiber/views/layout"
+	"alaricode/go-fiber/views/widgets"
+)
+
+templ Register(authenticated bool) {
+	@layout.Layout(layout.LayoutProps{
+		Title:           "Регистрация",
+		MetaDescription: "Создать аккаунт для поиска работы",
+	}) {
+		<main>
+			@RegisterStyle()
+			@layout.Header(authenticated) {
+				@components.Title("Регистрация")
+				@components.SubTitle("Создайте аккаунт")
+			}
+			<div class="register-page">
+				<div class="register-wrapper">
+					@widgets.RegisterForm()
+				</div>
+			</div>
+		</main>
+	}
+}
+
+templ RegisterStyle() {
+	<style>
+		.register-page {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 100%;
+			background: rgba(48, 150, 137, 0.10);
+			padding: 60px 20px 120px;
+		}
+		.register-wrapper {
+			width: 100%;
+			max-width: 520px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+	</style>
+}

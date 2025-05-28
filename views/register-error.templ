@@ -1,0 +1,7 @@
+package views
+
+import "alaricode/go-fiber/views/components"
+
+templ RegisterError(message string) {
+	@components.Notification(message, components.NotificationFail)
+}

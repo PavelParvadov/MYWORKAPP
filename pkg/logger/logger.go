@@ -1,20 +1,20 @@
 package logger
 
 import (
-	"MYWORKAPP/config"
-	"github.com/rs/zerolog"
+	"alaricode/go-fiber/config"
 	"os"
+
+	"github.com/rs/zerolog"
 )
 
 func NewLogger(config *config.LogConfig) *zerolog.Logger {
 	zerolog.SetGlobalLevel(zerolog.Level(config.Level))
 	var logger zerolog.Logger
-
-	if config.Format == "JSON" {
+	if config.Format == "json" {
 		logger = zerolog.New(os.Stderr).With().Timestamp().Logger()
 	} else {
-		ConsoleWriter := zerolog.ConsoleWriter{Out: os.Stdout}
-		logger = zerolog.New(ConsoleWriter).With().Timestamp().Logger()
+		consoleWriter := zerolog.ConsoleWriter{Out: os.Stdout}
+		logger = zerolog.New(consoleWriter).With().Timestamp().Logger()
 	}
 	return &logger
 }
