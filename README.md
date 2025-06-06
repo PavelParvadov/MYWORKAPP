@@ -22,8 +22,8 @@
 
 1. Клонируйте репозиторий:
    ```sh
-   git clone https://github.com/your-username/19-golang-templ-htmx.git
-   cd 19-golang-templ-htmx
+   git clone https://github.com/PavelParvadov/MYWORKAPP.git
+   cd MYWORKAPP
    ```
 
 2. Запустите базу данных:
@@ -54,11 +54,6 @@
 - Регистрация и авторизация пользователей
 - Просмотр и создание вакансий
 - Динамические обновления интерфейса через htmx
-
-## Где получить помощь
-
-- Открывайте issues в этом репозитории
-- Пишите на email: your@email.com
 
 ## Контрибьюторы
 
