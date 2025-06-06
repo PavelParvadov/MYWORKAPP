@@ -59,3 +59,6 @@
 
 - @laxyshkaaa (основной разработчик)
 
+## Wiki-документация
+
+Подробная документация доступна [по ссылке](https://github.com/PavelParvadov/MYWORKAPP/wiki)
